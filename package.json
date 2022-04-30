@@ -1,0 +1,27 @@
+{
+  "name": "flashy_backend",
+  "version": "1.0.0",
+  "description": "Backend Code for the Flashy Application",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [
+    "Backend",
+    "Flashy"
+  ],
+  "author": "Nachiappan, Parithimalan, Khaveesh",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "express-validator": "^6.14.0",
+    "jsonwebtoken": "^8.5.1",
+    "log-to-file": "^3.0.0",
+    "mongoose": "^6.3.1",
+    "nodemon": "^2.0.16",
+    "path": "^0.12.7"
+  }
+}
