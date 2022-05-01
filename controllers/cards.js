@@ -118,7 +118,11 @@ module.exports.editCard = async function (req, res) {
             card.deckId = deck;
         }
 
-        oldDeck.cards = oldDeck.cards.filter((ele)=> (ele!=cardId));
+        if (!deck) {
+            deck = oldDeck;
+        }
+
+        oldDeck.cards = oldDeck.cards.filter((ele) => (ele != cardId));
         await oldDeck.save();
 
         if (content) card.content = content;
