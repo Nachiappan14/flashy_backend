@@ -4,6 +4,7 @@ const flog = require("../utils/log");
 const Deck = require('../models/decks');
 const User = require('../models/users');
 const { default: mongoose } = require("mongoose");
+const Card = require("../models/cards");
 
 module.exports.addDeck = async function (req, res) {
     // logging the required informaton
@@ -124,7 +125,7 @@ module.exports.editDeck = async function (req, res) {
     }
 }
 
-/*
+
 module.exports.deleteDeck = async function (req, res) {
     // logging the required informaton
     var id = null;
@@ -146,32 +147,35 @@ module.exports.deleteDeck = async function (req, res) {
             return res.status(400).json({ errors: [{ msg: "Deck Not Found" }] });
         }
 
-
         var user = await User.findById(deck.userId);
-        if (!deck) {
+        if (!user) {
             flog(logText + "400");
-            return res.status(400).json({ errors: [{ msg: "Deck Not Found" }] });
+            return res.status(400).json({ errors: [{ msg: "User Not Associated With Deck" }] });
         }
 
-        deck.cards = deck.cards.filter((ele) => (ele != cardId));
+        if (!deck.userId.includes(id)) {
+            flog(logText + "400");
+            return res.status(400).json({ errors: [{ msg: "Not Authorized to modify deck" }] });
+        }
 
-        var operRes = await Card.deleteOne({ _id: cardId });
-
-        await deck.save();
-
-        // console.log(operRes);
+        user.decks = user.decks.filter((ele) => (ele != deckId));
+        
+        var operRes = await Card.deleteMany({_id: deck.cards});
+        operRes = await Deck.deleteOne({ _id: deckId });
+        await user.save();
 
         if (operRes == null) {
             flog(logText + "400");
-            return res.status(400).json({ errors: [{ msg: "Card cannot be Deleted" }] });
+            return res.status(400).json({ errors: [{ msg: "Deck cannot be Deleted" }] });
         }
 
         if (operRes.modifiedCount < 1) {
             flog(logText + "400");
-            return res.status(400).json({ errors: [{ msg: "Card cannot be deleted" }] });
+            return res.status(400).json({ errors: [{ msg: "Deck cannot be deleted" }] });
         }
+
         flog(logText + "200");
-        res.json({ msg: "Card Deletion Successful..." });
+        res.json({ msg: "Deck Deletion Successful..." });
 
     } catch (err) {
         console.error("Error: ", err.message);
@@ -179,4 +183,3 @@ module.exports.deleteDeck = async function (req, res) {
         return res.status(500).send("Internal Server Error");
     }
 }
-*/
