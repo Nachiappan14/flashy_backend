@@ -3,7 +3,7 @@ const router = express.Router();
 
 const auth = require("../middlewares/auth");
 const { check } = require("express-validator");
-const { addUser, getUser, loginUser } = require('../controllers/users.js');
+const { addUser, getUser, loginUser, modifyUser } = require('../controllers/users.js');
 
 
 // Register User
@@ -31,5 +31,17 @@ router.post(
 	],
 	loginUser
 );
+
+router.post(
+	"/modify",
+	[
+		check(
+			"password",
+			"Please Enter Password With 6 Or More Characters"
+		).isLength({ min: 6 }),
+		auth
+	],
+	modifyUser
+)
 
 module.exports = router;
