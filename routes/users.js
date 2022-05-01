@@ -32,6 +32,7 @@ router.post(
 	loginUser
 );
 
+//Modify user details
 router.post(
 	"/modify",
 	[

@@ -1,4 +1,6 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+
+const Deck = require("./decks");
 
 var UserSchema = new mongoose.Schema({
 	name: {
@@ -9,6 +11,13 @@ var UserSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	decks: {
+		type: [{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Deck',
+		}],
+		required: false
+	}
 });
 
 module.exports = mongoose.model("User",UserSchema)

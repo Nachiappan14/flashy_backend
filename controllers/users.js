@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require("express-validator");
@@ -6,7 +5,6 @@ const flog = require("../utils/log");
 const config = require("../config.js")
 
 const User = require("../models/users");
-const { db } = require('../models/users');
 
 var jwtSecret = config.jwtSecret;
 
@@ -125,7 +123,10 @@ module.exports.getUser = async function (req, res) {
 	var logText = req.method + " " + req.originalUrl + " " + id + " ";
 
 	try {
-		const user = await User.findById(req.user.id).select("-password");
+		const user = await User.findById(req.user.id).populate({
+			path: 'decks',
+			populate: [{path:'cards'},{path:'userId',select:"-password"}]
+		}).select("-password");
 		if (user) {
 			flog(logText + "200");
 			return res.json(user);
