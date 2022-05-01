@@ -27,8 +27,8 @@ module.exports.addCard = async function (req, res) {
             return res.status(400).json({ errors: [{ msg: "Deck Not Found" }] });
         }
 
-        console.log(deck.userId, "==", id);
-        console.log(deck.userId.includes(id));
+        // console.log(deck.userId, "==", id);
+        // console.log(deck.userId.includes(id));
         
         if(!deck.userId.includes(id)){
             flog(logText + "400");
