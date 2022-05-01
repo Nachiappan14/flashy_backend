@@ -4,15 +4,24 @@ const router = express.Router();
 const auth = require("../middlewares/auth");
 const { check } = require("express-validator");
 
-const {addDeck} = require("../controllers/decks");
+const { addDeck, editDeck } = require("../controllers/decks");
 
 // Add Deck
 router.post(
-    "/addDeck",[
-        auth,
-        check("name","Enter a valid Deck Name").not().isEmpty(),
-    ],
+    "/addDeck", [
+    auth,
+    check("name", "Enter a valid Deck Name").not().isEmpty(),
+],
     addDeck
+);
+
+// Edit Deck
+router.post(
+    "/editDeck", [
+    auth,
+    check("deckId", "Deck Id not valid").exists(),
+],
+    editDeck
 );
 
 module.exports = router;
