@@ -157,7 +157,7 @@ module.exports.modifyUser = async function (req, res) {
 
 	const { name, password } = req.body;
 
-	// try {
+	try {
 		let user = await User.findById(id);
 
 		if (!user) {
@@ -203,9 +203,9 @@ module.exports.modifyUser = async function (req, res) {
 				res.json({ msg: "Update Successful" });
 			});
 		}
-	// } catch (err) {
-	// 	console.error("Error",err.message);
-	// 	flog(logText + "500");
-	// 	return res.status(500).send("Internal Server Error");
-	// }
+	} catch (err) {
+		console.error("Error",err.message);
+		flog(logText + "500");
+		return res.status(500).send("Internal Server Error");
+	}
 }
