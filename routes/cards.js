@@ -4,7 +4,7 @@ const router = express.Router();
 const auth = require("../middlewares/auth");
 const { check } = require("express-validator");
 
-const { addCard, editCard } = require("../controllers/cards");
+const { addCard, editCard, deleteCard } = require("../controllers/cards");
 
 // Add Card
 router.post(
@@ -26,5 +26,14 @@ router.post(
     editCard
 );
 
+
+// Delete Card
+router.post(
+    "/deleteCard", [
+    auth,
+    check("cardId", "Card Id does not exist").exists()
+],
+    deleteCard
+);
 
 module.exports = router;
