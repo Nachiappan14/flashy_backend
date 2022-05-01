@@ -6,6 +6,7 @@ const path = require('path');
 
 const userRoutes = require('./routes/users');
 const deckRoutes = require('./routes/decks');
+const cardRoutes = require('./routes/cards');
 
 const config = require('./config.js')
 
@@ -19,6 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/users', userRoutes);
 app.use('/decks', deckRoutes);
+app.use('/cards', cardRoutes);
 
 const CONNECTION_URL = config.DBURL;
 const PORT = 15000;

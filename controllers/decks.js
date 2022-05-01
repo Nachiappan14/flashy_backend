@@ -41,11 +41,11 @@ module.exports.addDeck = async function (req, res) {
 
         // var operRes = await User.updateOne({ _id: id }, { $push: { decks: deck } });
         
-        console.log(user);
+        // console.log(user);
         user.decks.push(deck);
         var operRes = await user.save();
         
-        console.log(operRes);
+        // console.log(operRes);
         
         if (operRes == null) {
             flog(logText + "400");
