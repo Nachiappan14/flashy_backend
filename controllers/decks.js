@@ -125,6 +125,7 @@ module.exports.editDeck = async function (req, res) {
     }
 }
 
+// TODO: Add addAdmin API and removeAdmin API
 
 module.exports.deleteDeck = async function (req, res) {
     // logging the required informaton
@@ -159,8 +160,8 @@ module.exports.deleteDeck = async function (req, res) {
         }
 
         user.decks = user.decks.filter((ele) => (ele != deckId));
-        
-        var operRes = await Card.deleteMany({_id: deck.cards});
+
+        var operRes = await Card.deleteMany({ _id: deck.cards });
         operRes = await Deck.deleteOne({ _id: deckId });
         await user.save();
 
