@@ -4,7 +4,7 @@ const router = express.Router();
 const auth = require("../middlewares/auth");
 const { check } = require("express-validator");
 
-const { addQuiz } = require("../controllers/quiz");
+const { addQuiz, getQuiz } = require("../controllers/quiz");
 
 // Add Quiz
 router.post(
@@ -15,6 +15,14 @@ router.post(
     check("responses", "Reponse not available").exists(),
 ],
     addQuiz
+);
+
+// Get Quiz
+router.get(
+    "/getQuiz", [
+    auth,
+],
+    getQuiz
 );
 
 module.exports = router;

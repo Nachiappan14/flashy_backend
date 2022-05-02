@@ -100,3 +100,43 @@ module.exports.addQuiz = async function (req, res) {
         return res.status(500).send("Internal Server Error");
     }
 }
+
+module.exports.getQuiz = async function (req, res) {
+    // logging the required informaton
+    var id = null;
+    if (req.user != undefined) id = req.user.id;
+    var logText = req.method + " " + req.originalUrl + " " + id + " ";
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        flog(logText + "400");
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    const userId = id;
+    if (!userId) {
+        flog(logText + "400");
+        return res.status(400).json({ errors: [{ msg: "User Not Logged in" }] });
+    }
+
+    try {
+
+        let user = await User.findById(userId);
+        if (!user) {
+            flog(logText + "400");
+            return res.status(400).json({ errors: [{ msg: "User Not Found" }] });
+        }
+
+        const quizzes = await Quiz.find({userId}).populate({
+            path: 'responses'
+        });
+        
+        flog(logText + "200");
+        return res.json({ data: quizzes });
+
+    } catch (err) {
+        console.error("Error: ", err.message);
+        flog(logText + "500");
+        return res.status(500).send("Internal Server Error");
+    }
+}
