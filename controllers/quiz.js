@@ -5,7 +5,7 @@ const Card = require('../models/cards');
 const Deck = require('../models/decks');
 const User = require('../models/users');
 const Response = require('../models/response');
-const Quiz = require('../models/cards');
+const Quiz = require('../models/quiz');
 
 const addResponse = require('./response');
 
