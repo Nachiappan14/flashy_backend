@@ -3,7 +3,7 @@ const Response = require('../models/response');
 
 const addResponse = async (ele) => {
     const { cardId, answer, correct } = ele;
-    const card = Card.findById(cardId);
+    const card = await Card.findById(cardId);
     if (!card) {
         throw ("Card Not Found");
     }
