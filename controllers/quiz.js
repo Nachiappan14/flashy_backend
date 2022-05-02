@@ -69,7 +69,7 @@ module.exports.addQuiz = async function (req, res) {
         // Use some for loop to iterate through the responses and add them
         try {
             responses.map((ele) => {
-                const response = addResponse();
+                const response = addResponse(ele);
                 quiz.responses.push(response);
             });
         } catch (err) {
