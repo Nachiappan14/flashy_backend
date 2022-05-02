@@ -68,13 +68,13 @@ module.exports.addQuiz = async function (req, res) {
 
         // Use some for loop to iterate through the responses and add them
         try {
-            responses.map((ele) => {
-                const response = addResponse(ele);
+            responses.map(async (ele) => {
+                let response = await addResponse(ele);
                 quiz.responses.push(response);
             });
         } catch (err) {
             flog(logText + "400");
-            await Response.deleteMany({_id: responses});
+            await Response.deleteMany({ _id: responses });
             return res.status(400).json({ errors: [{ msg: "Quiz cannot be added bcos of invalid response", err: err }] });
         }
 
@@ -127,10 +127,10 @@ module.exports.getQuiz = async function (req, res) {
             return res.status(400).json({ errors: [{ msg: "User Not Found" }] });
         }
 
-        const quizzes = await Quiz.find({userId}).populate({
+        const quizzes = await Quiz.find({ userId }).populate({
             path: 'responses'
         });
-        
+
         flog(logText + "200");
         return res.json({ data: quizzes });
 
