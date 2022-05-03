@@ -25,6 +25,6 @@ var DeckSchema = new mongoose.Schema({
 		}],
 		required: false
     }
-});
+},{ timestamps: true });
 
 module.exports = mongoose.model("Deck", DeckSchema);

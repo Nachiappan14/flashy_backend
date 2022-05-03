@@ -18,6 +18,6 @@ var UserSchema = new mongoose.Schema({
 		}],
 		required: false
 	}
-});
+},{ timestamps: true });
 
 module.exports = mongoose.model("User",UserSchema)

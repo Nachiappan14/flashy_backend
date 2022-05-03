@@ -20,6 +20,6 @@ var CardSchema = new mongoose.Schema({
         ref: 'Deck',
         required: true
     }
-});
+},{ timestamps: true });
 
 module.exports = mongoose.model("Card", CardSchema);
