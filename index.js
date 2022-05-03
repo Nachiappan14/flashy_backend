@@ -25,7 +25,7 @@ app.use('/cards', cardRoutes);
 app.use('/quiz', quizRoutes);
 
 const CONNECTION_URL = config.DBURL;
-const PORT = 15000;
+const PORT = config.port;
 
 
 mongoose.connect(CONNECTION_URL).then(() => app.listen(PORT, () => { console.log(`Server Running on Port: http://localhost:${PORT}`) }))
