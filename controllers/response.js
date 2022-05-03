@@ -10,11 +10,11 @@ const addResponse = async (ele) => {
     if (answer == null) throw ("Field Answer Not present");
     if (correct == null) throw ("Field correct Not present");
     const response = new Response({
-        cardId,
+        card,
         answer,
         correct
     });
-    response.cardId = card;
+    response.card = card;
     var operRes = await response.save();
     if (operRes == null) {
         await Response.deleteOne({ _id: response.id });
