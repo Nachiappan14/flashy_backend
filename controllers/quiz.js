@@ -139,7 +139,7 @@ module.exports.getQuiz = async function (req, res) {
 
         const quizzes = await Quiz.find({ userId }).populate({
             path: "responses",
-        });
+        }).populate("deckId");
 
         flog(logText + "200");
         return res.json({ data: quizzes });
