@@ -3,7 +3,14 @@ const router = express.Router();
 
 const auth = require("../middlewares/auth");
 const { check } = require("express-validator");
-const { addUser, getUser, loginUser, modifyUser } = require('../controllers/users.js');
+const {
+  addUser,
+  getUser,
+  loginUser,
+  modifyUser,
+  sendRequest,
+  updateRequest,
+} = require("../controllers/users.js");
 
 
 // Register User
@@ -44,5 +51,11 @@ router.post(
 	],
 	modifyUser
 )
+
+//Send Friend Request
+router.post("/sendRequest",auth,sendRequest)
+
+//Update Friend Request
+router.post("/updateRequest", auth, updateRequest);
 
 module.exports = router;

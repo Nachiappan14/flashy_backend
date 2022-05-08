@@ -17,7 +17,21 @@ var UserSchema = new mongoose.Schema({
 			ref: 'Deck',
 		}],
 		required: false
-	}
+	},
+	friends: {
+		type: [{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'User',
+		}],
+		required: false
+	},
+	requests: {
+		type: [{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'User',
+		}],
+		required: false
+	},
 },{ timestamps: true });
 
 module.exports = mongoose.model("User",UserSchema)

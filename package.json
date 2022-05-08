@@ -4,12 +4,18 @@
   "description": "Backend Code for the Flashy Application",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "test": "mocha --timeout 10000"
   },
   "keywords": [
     "Backend",
     "Flashy"
   ],
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "mocha": "^2.4.5"
+  },
   "author": "Nachiappan, Parithimalan, Khaveesh",
   "license": "ISC",
   "dependencies": {
