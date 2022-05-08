@@ -1,0 +1,33 @@
+---
+version: "3"
+services:
+  backend:
+    container_name: node_backend
+    image: khaveesh/flashy_backend
+    restart: always
+    ports:
+    - "15000:15000"
+    volumes:
+    - ~/backend.log:/backend.log
+    env_file: .env
+    links:
+    - mongodb
+    depends_on:
+    - mongodb
+    environment:
+      WAIT_HOSTS: mongodb:27017
+    networks:
+    - node-webapp-network
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    env_file: .env
+    volumes:
+    - ~/mongo:/data/db
+    ports:
+    - "27017:27017"
+    networks:
+    - node-webapp-network
+networks:
+  node-webapp-network:
+    driver: bridge
