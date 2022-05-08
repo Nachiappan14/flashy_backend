@@ -2,11 +2,11 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require("express-validator");
 const flog = require("../utils/log");
-const config = require("../config.js")
+// const config = require("../config.js")
 
 const User = require("../models/users");
 
-var jwtSecret = config.jwtSecret;
+var jwtSecret = process.env.JWT_SECRET || "secret";
 
 module.exports.addUser = async function (req, res) {
 

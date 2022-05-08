@@ -1,7 +1,7 @@
 // Import.
 const fs = require('fs');
 
-const config = require("../config.js");
+// const config = require("../config.js");
 
 
 /**
@@ -51,7 +51,7 @@ function logtofile(text, file = 'default.log', delimiter = '\n') {
 }
 
 const flog = (str) => {
-	logtofile(str, config.LOG_FILE_NAME);
+	logtofile(str, process.env.LOG_FILE_NAME || "backend.log");
 };
 
 module.exports = flog;

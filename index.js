@@ -9,7 +9,7 @@ const deckRoutes = require('./routes/decks');
 const cardRoutes = require('./routes/cards');
 const quizRoutes = require('./routes/quiz');
 
-const config = require('./config.js')
+// const config = require('./config.js')
 
 const app = express();
 
@@ -24,8 +24,8 @@ app.use('/decks', deckRoutes);
 app.use('/cards', cardRoutes);
 app.use('/quiz', quizRoutes);
 
-const CONNECTION_URL = config.DBURL;
-const PORT = config.port;
+const CONNECTION_URL = process.env.DBURL || "mongodb://localhost:27017/flashy";
+const PORT = process.env.PORT || 15000;
 
 
 mongoose.connect(CONNECTION_URL).then(() => app.listen(PORT, () => { console.log(`Server Running on Port: http://localhost:${PORT}`) }))

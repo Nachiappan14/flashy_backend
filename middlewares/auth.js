@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
-const config = require("../config.js");
+// const config = require("../config.js");
 const flog = require("../utils/log");
 
-var jwtSecret = config.jwtSecret;
+var jwtSecret = process.env.JWT_SECRET || "secret";
 
 module.exports = function (req, res, next) {
 	// Logging
