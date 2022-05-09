@@ -1,0 +1,17 @@
+---
+- name: Run docker compose
+  hosts: aws
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  tasks:
+  - name: Get the docker compose script
+    ansible.builtin.git:
+      repo: https://github.com/Nachiappan14/flashy_backend.git
+      dest: null
+  - name: Tear down existing services
+    docker_compose:
+      project_src: ~/flashy_backend/deploy
+      state: absent
+  - name: Create and start services
+    docker_compose:
+      project_src: ~/flashy_backend/deploy
