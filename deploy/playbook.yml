@@ -7,11 +7,11 @@
   - name: Get the docker compose script
     ansible.builtin.git:
       repo: https://github.com/Nachiappan14/flashy_backend.git
-      dest: null
+      dest: ./flashy_backend
   - name: Tear down existing services
     docker_compose:
-      project_src: ~/flashy_backend/deploy
+      project_src: ~/flashy_backend
       state: absent
   - name: Create and start services
     docker_compose:
-      project_src: ~/flashy_backend/deploy
+      project_src: ~/flashy_backend
