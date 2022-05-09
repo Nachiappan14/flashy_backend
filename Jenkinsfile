@@ -37,11 +37,12 @@ pipeline {
         stage('5: Ansible') {
             steps {
                 script {
-                    ansiblePlaybook
-		        credentialsId: 'aws',
+                    ansiblePlaybook(
+                        credentialsId: "aws",
                         installation: 'ansible',
                         inventory: './deploy/inventory',
                         playbook: './deploy/playbook.yml'
+                    )
                 }
             }
         }
