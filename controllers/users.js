@@ -122,6 +122,8 @@ module.exports.getUser = async function (req, res) {
         path: "decks",
         populate: [{ path: "cards" }, { path: "userId", select: "-password" }],
       })
+      .populate({path :"friends",populate: {path: "decks", populate:"cards"}})
+      .populate("requests")
       .select("-password");
     if (user) {
       flog(logText + "200");
@@ -217,8 +219,8 @@ module.exports.sendRequest = async function (req, res) {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { friendId } = req.body;
-  console.log(friendId);
+  const { name } = req.body;
+  console.log(name);
   try {
     let sender = await User.findById(id);
 
@@ -227,15 +229,30 @@ module.exports.sendRequest = async function (req, res) {
       return res.status(400).json({ errors: [{ msg: "UserId not present" }] });
     }
 
-    let receiver = await User.findById(friendId);
+    let receiver = await User.findOne({ name: name })
+      .populate("friends")
+      .populate("requests");
     console.log(receiver);
     if (!receiver) {
       flog(logText + "400");
+      return res.status(400).json({ errors: [{ msg: "User does not exist" }] });
+    }
+    let checkFriend = receiver.friends.filter((f) => (f.name === sender.name));
+    console.log(checkFriend)
+    if (checkFriend.length > 0) {
+      flog(logText + "400");
       return res
         .status(400)
-        .json({ errors: [{ msg: "Friend Id not present" }] });
+        .json({ errors: [{ msg: "Already Friends" }] });
     }
-
+    let checkRequest = receiver.requests.filter((r) => r.name === sender.name);
+    console.log(checkFriend);
+    if (checkRequest.length > 0) {
+      flog(logText + "400");
+      return res
+        .status(400)
+        .json({ errors: [{ msg: "Request already sent" }] });
+    }
     receiver.requests.push(sender);
 
     await receiver.save();
@@ -260,8 +277,8 @@ module.exports.updateRequest = async function (req, res) {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { friendId, status } = req.body;
-  console.log(friendId);
+  const { name, status } = req.body;
+  console.log(name);
   try {
     let receiver = await User.findById(id);
 
@@ -270,7 +287,7 @@ module.exports.updateRequest = async function (req, res) {
       return res.status(400).json({ errors: [{ msg: "UserId not present" }] });
     }
 
-    let sender = await User.findById(friendId);
+    let sender = await User.findOne({ name: name });
     console.log(sender);
     if (!sender) {
       flog(logText + "400");
@@ -279,21 +296,20 @@ module.exports.updateRequest = async function (req, res) {
         .json({ errors: [{ msg: "Friend Id not present" }] });
     }
 
-	if(status){
-		receiver.friends.push(sender);
-		sender.friends.push(receiver);
-		receiver.requests.pull(sender);
-	}else{
-		receiver.requests.pull(sender);
-	}
+    if (status) {
+      receiver.friends.push(sender);
+      sender.friends.push(receiver);
+      receiver.requests.pull(sender);
+    } else {
+      receiver.requests.pull(sender);
+    }
 
     await receiver.save();
     await sender.save();
 
     flog(logText + "200");
-	if(status)
-    res.json({ msg: "Friend request Accepted..." });
-	else res.json({ msg: "Friend request Rejected..." });
+    if (status) res.json({ msg: "Friend request Accepted..." });
+    else res.json({ msg: "Friend request Rejected..." });
   } catch (err) {
     console.error("Error", err.message);
     flog(logText + "500");
