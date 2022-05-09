@@ -10,8 +10,8 @@
       dest: ./flashy_backend
   - name: Tear down existing services
     docker_compose:
-      project_src: ~/flashy_backend/deploy
+      project_src: ~/flashy_backend/docker
       state: absent
   - name: Create and start services
     docker_compose:
-      project_src: ~/flashy_backend/deploy
+      project_src: ~/flashy_backend/docker
