@@ -124,7 +124,7 @@ describe("Decks", () => {
     it("Add deck", (done) => {
       let deck = { name: "test_deck" }
       chai
-      .request(server)
+        .request(server)
         .post("/decks/addDeck")
         .send(deck)
         .set("x-auth-token", token)
@@ -142,15 +142,15 @@ describe("Decks", () => {
       deck = await Decks.findOne({ name: "test_deck" })
       let d = { deckId: deck._id, tags: ["hello"] }
       chai
-      .request(server)
-      .post("/decks/editDeck")
-      .send(d)
-      .set("x-auth-token", token)
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.be.a("object");
-        done();
-      });
+        .request(server)
+        .post("/decks/editDeck")
+        .send(d)
+        .set("x-auth-token", token)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a("object");
+          done();
+        });
     });
   });
 
@@ -184,7 +184,7 @@ describe("Cards", () => {
   describe("edit card", () => {
     it("Edit card", async (done) => {
       card = await Cards.findOne({ deckId: deck._id })
-      let c = { cardId: card._id, content: "Changed content"}
+      let c = { cardId: card._id, content: "Changed content" }
       chai
         .request(server)
         .post("/cards/editCard")

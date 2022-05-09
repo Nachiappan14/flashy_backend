@@ -37,7 +37,11 @@ pipeline {
         stage('5: Ansible') {
             steps {
                 script {
-                    ansiblePlaybook installation: 'ansible', inventory: './deploy/inventory', playbook: './deploy/playbook.yml'
+                    ansiblePlaybook
+		        credentialsId: 'aws',
+                        installation: 'ansible',
+                        inventory: './deploy/inventory',
+                        playbook: './deploy/playbook.yml'
                 }
             }
         }
