@@ -45,12 +45,12 @@ module.exports.addQuiz = async function (req, res) {
             return res.status(400).json({ errors: [{ msg: "User Not Found" }] });
         }
 
-        if (!user.decks.includes(deckId)) {
-            flog(logText + "400");
-            return res
-                .status(400)
-                .json({ errors: [{ msg: "Not Authorized to take quiz..." }] });
-        }
+        // if (!user.decks.includes(deckId)) {
+        //     flog(logText + "400");
+        //     return res
+        //         .status(400)
+        //         .json({ errors: [{ msg: "Not Authorized to take quiz..." }] });
+        // }
 
         // get the responses list somehow
         if (!Array.isArray(responses)) {
