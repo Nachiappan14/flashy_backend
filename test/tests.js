@@ -207,37 +207,53 @@ describe("Quiz", () => {
     });
   });
 
-  // describe("add quiz", () => {
-  //   it("Add quiz", (done) => {
-  //     let quiz = { deckId: deck._id, score: 1, responses: [{ card: deck.cards[0], answer: "welcome", correct: true }] }
-  //     console.log(deck)
-  //     chai
-  //       .request(server)
-  //       .post("/quiz/addQuiz")
-  //       .send(quiz)
-  //       .set("x-auth-token", token)
-  //       .end((err, res) => {
-  //         res.should.have.status(200);
-  //         res.body.should.be.a("object");
-  //         res.body.should.have.property("msg");
-  //         done();
-  //       });
-  //   });
-  // });
+  describe("add quiz", () => {
+    it("Add quiz", (done) => {
+      let quiz = { deckId: deck._id, score: 1, responses: [ { cardId: card._id, answer: "welcome", correct: true } ] }
+      console.log(deck)
+      chai
+        .request(server)
+        .post("/quiz/addQuiz")
+        .send(quiz)
+        .set("x-auth-token", token)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a("object");
+          res.body.should.have.property("msg");
+          done();
+        });
+    });
+  });
 
-  // describe("get quiz", () => {
-  //   it("Get quiz", (done) => {
-  //     chai
-  //       .request(server)
-  //       .get("/quiz/getQuiz")
-  //       .set("x-auth-token", token)
-  //       .end((err, res) => {
-  //         res.should.have.status(200);
-  //         res.body.should.be.a("array");
-  //         done();
-  //       });
-  //   });
-  // });
+  describe("get quiz", () => {
+    it("Get quiz", (done) => {
+      chai
+        .request(server)
+        .get("/quiz/getQuiz")
+        .set("x-auth-token", token)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a("object");
+          res.body.should.have.property("data");
+          done();
+        });
+    });
+  });
+
+  describe("leaderboard", () => {
+    it("Get leaderboard", (done) => {
+      chai
+        .request(server)
+        .get("/quiz/leaderboard/"+deck._id)
+        .set("x-auth-token", token)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a("object");
+          res.body.should.have.property("leaderboard");
+          done();
+        });
+    });
+  });
 });
 
 describe("Delete all test inputs", () => {
