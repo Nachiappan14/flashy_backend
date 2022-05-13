@@ -12,6 +12,8 @@
     docker_compose:
       project_src: ~/flashy_backend
       state: absent
+      remove_orphans: yes
   - name: Create and start services
     docker_compose:
       project_src: ~/flashy_backend
+      pull: yes
