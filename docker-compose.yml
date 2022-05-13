@@ -7,6 +7,9 @@ services:
     restart: always
     environment:
       WAIT_HOSTS: mongodb:27017
+      PORT: 15000
+      DBURL: mongodb://mongodb:27017/flashy
+      LOG_FILE_NAME: backend.log
     env_file: ~/jwt_secret
     ports:
     - "15000:15000"
