@@ -14,7 +14,7 @@ services:
     ports:
     - "15000:15000"
     volumes:
-    - ~/backend.log:/backend.log
+    - ~/backend.log:backend.log
     links:
     - mongodb
     depends_on:
