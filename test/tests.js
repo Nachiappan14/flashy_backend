@@ -22,7 +22,7 @@ describe("Users", () => {
     });
   });
 
-  describe("/register user", () => {
+  describe("register user", () => {
     it("Add user", (done) => {
       let user = { name: "test", password: "testPassword" }
       chai
@@ -38,7 +38,7 @@ describe("Users", () => {
     });
   });
 
-  describe("/register user", () => {
+  describe("register existing user", () => {
     it("Add user Fails", (done) => {
       let user = { name: "test", password: "testPassword" };
       chai

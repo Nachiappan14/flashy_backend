@@ -1,0 +1,554 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is the backend API documentation for our SPE Project - Flsahy an online quiz app to aid in memorization",
+    "version": "1.0.0",
+    "title": "Flashy"
+  },
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/users/register": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Add a new user",
+        "description": "",
+        "operationId": "addUser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object that needs to be added",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Malformed input"
+          }
+        }
+      }
+    },
+    "/users/auth": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Authenticate the user",
+        "description": "",
+        "operationId": "login",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object that needs to be authenticated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Token"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Authenticate the user",
+        "description": "",
+        "operationId": "getAuth",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Token"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/users/modify": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Modify user profile",
+        "description": "",
+        "operationId": "modify",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "New password",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ChgPwd"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "400": {
+            "description": "Invalid auth JWT token"
+          }
+        }
+      }
+    },
+    "/users/sendRequest": {
+      "post": {
+        "tags": [
+          "friend"
+        ],
+        "summary": "Send a friend request",
+        "description": "",
+        "operationId": "sendRequest",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Friend's name",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Name"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "400": {
+            "description": "Username not found"
+          }
+        }
+      }
+    },
+    "/users/updateRequest": {
+      "post": {
+        "tags": [
+          "friend"
+        ],
+        "summary": "Accept/Decline a friend request",
+        "description": "",
+        "operationId": "updateRequest",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Friend's name and respone",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "400": {
+            "description": "Username not found"
+          }
+        }
+      }
+    },
+    "/decks/addDeck": {
+      "post": {
+        "tags": [
+          "deck"
+        ],
+        "summary": "Add a deck to a user",
+        "description": "",
+        "operationId": "addDeck",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Name of deck to be created",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeckName"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          }
+        }
+      }
+    },
+    "/decks/editDeck": {
+      "post": {
+        "tags": [
+          "deck"
+        ],
+        "summary": "Edits the tags of an existing deck",
+        "description": "",
+        "operationId": "editDeck",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "ID of deck to update and updated tags",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeckTag"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          }
+        }
+      }
+    },
+    "/cards/addCard": {
+      "post": {
+        "tags": [
+          "card"
+        ],
+        "summary": "Add a card to the deck",
+        "description": "",
+        "operationId": "addCard",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "ID of deck to update and card's content, qn & ans",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddCard"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          }
+        }
+      }
+    },
+    "/editCard": {
+      "post": {
+        "tags": [
+          "card"
+        ],
+        "summary": "Edit a card's content, qn or ans",
+        "description": "",
+        "operationId": "editCard",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "editted card",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/EditCard"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "400": {
+            "description": "Invalid card id"
+          }
+        }
+      }
+    },
+    "/quiz/addQuiz": {
+      "post": {
+        "tags": [
+          "quiz"
+        ],
+        "summary": "Add a quiz",
+        "description": "",
+        "operationId": "addQuiz",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Quiz"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Message"
+            }
+          },
+          "400": {
+            "description": "Invalid schema supplied"
+          },
+          "404": {
+            "description": "Deck not found"
+          }
+        }
+      }
+    },
+    "/quiz/getQuiz": {
+      "get": {
+        "tags": [
+          "quiz"
+        ],
+        "summary": "Get all quizzes played by the user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "getQuiz",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Quiz"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Token": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "DeckName": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "DeckTag": {
+      "type": "object",
+      "properties": {
+        "deckId": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "AddCard": {
+      "type": "object",
+      "properties": {
+        "deckId": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "question": {
+          "type": "string"
+        },
+        "answer": {
+          "type": "string"
+        }
+      }
+    },
+    "EditCard": {
+      "type": "object",
+      "properties": {
+        "cardId": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        },
+        "question": {
+          "type": "string"
+        },
+        "answer": {
+          "type": "string"
+        }
+      }
+    },
+    "Quiz": {
+      "type": "object",
+      "properties": {
+        "deckId": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "score": {
+          "type": "integer"
+        },
+        "responses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Response"
+          }
+        }
+      }
+    },
+    "Response": {
+      "type": "object",
+      "properties": {
+        "cardId": {
+          "type": "string"
+        },
+        "answer": {
+          "type": "string"
+        },
+        "response": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ChgPwd": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Message": {
+      "type": "object",
+      "properties": {
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "Name": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "Request": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Check out a live demo of the service",
+    "url": "http://flashy-npk.netlify.app"
+  }
+}
