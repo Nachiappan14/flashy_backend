@@ -3,7 +3,7 @@ version: "3"
 services:
   backend:
     container_name: node_backend
-    image: khaveesh/flashy_backend
+    image: khaveesh/flashy_backend:latest
     restart: always
     environment:
       WAIT_HOSTS: mongodb:27017
