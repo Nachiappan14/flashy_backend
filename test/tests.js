@@ -209,7 +209,7 @@ describe("Quiz", () => {
 
   describe("add quiz", () => {
     it("Add quiz", (done) => {
-      let quiz = { deckId: deck._id, score: 1, responses: [ { cardId: card._id, answer: "welcome", correct: true } ] }
+      let quiz = { deckId: deck._id, score: 1, responses: [{ cardId: card._id, answer: "welcome", correct: true }] }
       console.log(deck)
       chai
         .request(server)
@@ -244,7 +244,7 @@ describe("Quiz", () => {
     it("Get leaderboard", (done) => {
       chai
         .request(server)
-        .get("/quiz/leaderboard/"+deck._id)
+        .get("/quiz/leaderboard/" + deck._id)
         .set("x-auth-token", token)
         .end((err, res) => {
           res.should.have.status(200);

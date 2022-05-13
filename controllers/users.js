@@ -122,7 +122,7 @@ module.exports.getUser = async function (req, res) {
         path: "decks",
         populate: [{ path: "cards" }, { path: "userId", select: "-password" }],
       })
-      .populate({path :"friends",populate: {path: "decks", populate:"cards"}})
+      .populate({ path: "friends", populate: { path: "decks", populate: "cards" } })
       .populate("requests")
       .select("-password");
     if (user) {

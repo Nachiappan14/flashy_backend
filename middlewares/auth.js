@@ -16,18 +16,18 @@ module.exports = function (req, res, next) {
 
 	//Check if there is no token in the header
 	if (!token) {
-		flog(logText+"401");
+		flog(logText + "401");
 		return res.status(401).json({ msg: "No token, authorization denied" });
 	}
 
-	
+
 	//Verify token
 	try {
 		const decoded = jwt.verify(token, jwtSecret);
 		req.user = decoded.user;
 		next();
 	} catch (err) {
-		flog(logText+"401");
+		flog(logText + "401");
 		res.status(401).json({ msg: "Token is not valid" });
 	}
 };

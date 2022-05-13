@@ -19,13 +19,13 @@ var QuizSchema = new mongoose.Schema({
         type: Number,
         required: true,
     },
-    responses :{
+    responses: {
         type: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Response',
         }],
         required: true,
     },
-},{ timestamps: true });
+}, { timestamps: true });
 
 module.exports = mongoose.model("Quiz", QuizSchema);

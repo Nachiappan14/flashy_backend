@@ -7,7 +7,7 @@ var DeckSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    userId :{
+    userId: {
         type: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
@@ -20,11 +20,11 @@ var DeckSchema = new mongoose.Schema({
     },
     cards: {
         type: [{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Card',
-		}],
-		required: false
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Card',
+        }],
+        required: false
     }
-},{ timestamps: true });
+}, { timestamps: true });
 
 module.exports = mongoose.model("Deck", DeckSchema);

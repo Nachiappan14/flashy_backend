@@ -32,6 +32,6 @@ var UserSchema = new mongoose.Schema({
 		}],
 		required: false
 	},
-},{ timestamps: true });
+}, { timestamps: true });
 
-module.exports = mongoose.model("User",UserSchema)
+module.exports = mongoose.model("User", UserSchema)

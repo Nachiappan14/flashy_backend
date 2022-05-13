@@ -15,7 +15,7 @@ const addResponse = async (ele) => {
         correct
     });
     response.card = card;
-    if(response.answer === '') response.answer = "Not Answered"
+    if (response.answer === '') response.answer = "Not Answered"
     var operRes = await response.save();
     if (operRes == null) {
         await Response.deleteOne({ _id: response.id });
