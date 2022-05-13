@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:current-slim
 ENV NODE_ENV=production
 
 WORKDIR /app
